@@ -1,0 +1,135 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Total Security Solutions Provider</h1>
+                <p class="lead mb-4">Star Securities has been a pioneer in the Private Security Industry since 2000, providing comprehensive security solutions to over 250 corporate customers across 24 states.</p>
+                <div class="d-flex gap-3">
+                    <a asp-controller="Home" asp-action="Business" class="btn btn-light btn-lg">Our Services</a>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="bi bi-shield-check display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Statistics Section -->
+    <div class="row text-center mb-5">
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-people-fill text-primary display-4 mb-3"></i>
+                    <h3 class="fw-bold text-primary">2800+</h3>
+                    <p class="text-muted">Trained Personnel</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-building text-primary display-4 mb-3"></i>
+                    <h3 class="fw-bold text-primary">250+</h3>
+                    <p class="text-muted">Corporate Clients</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-geo-alt text-primary display-4 mb-3"></i>
+                    <h3 class="fw-bold text-primary">24</h3>
+                    <p class="text-muted">States Coverage</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-award text-primary display-4 mb-3"></i>
+                    <h3 class="fw-bold text-primary">ISO</h3>
+                    <p class="text-muted">9001:2000 Certified</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">Our Core Services</h2>
+        </div>
+        @if (ViewBag.Services != null)
+        {
+            @foreach (var service in ViewBag.Services)
+            {
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-shrink-0">
+                                    @switch (service.Category)
+                                    {
+                                        case "Physical Security":
+                                            <i class="bi bi-person-badge text-primary display-5"></i>
+                                            break;
+                                        case "Financial Security":
+                                            <i class="bi bi-cash-coin text-primary display-5"></i>
+                                            break;
+                                        case "Technology Security":
+                                            <i class="bi bi-camera-video text-primary display-5"></i>
+                                            break;
+                                        case "Human Resources":
+                                            <i class="bi bi-mortarboard text-primary display-5"></i>
+                                            break;
+                                        default:
+                                            <i class="bi bi-shield-check text-primary display-5"></i>
+                                            break;
+                                    }
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="card-title">@service.Name</h5>
+                                    <p class="card-text text-muted">@service.Description</p>
+                                    @if (!string.IsNullOrEmpty(service.Features))
+                                    {
+                                        <ul class="list-unstyled small">
+                                            @foreach (var feature in service.Features.Split(';'))
+                                            {
+                                                <li><i class="bi bi-check-circle text-success me-2"></i>@feature</li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- About Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h2 class="mb-4">About Star Securities</h2>
+            <p class="lead text-muted mb-4">
+                Set up in 2000, Star Securities has been a thought and knowledge leader in the private security industry. 
+                Through our decade of existence, we have endeavored to provide the best security solutions to our customers 
+                through innovation, commitment to quality, training and strict compliance to international standards.
+            </p>
+            <p class="text-muted mb-4">
+                What started as an investigation firm has grown into a "Total Security Solutions Provider" offering 
+                manned guarding, investigations, electronic security systems, and cash services. We are an ISO 9001:2000 
+                certified public limited company backed by a trained workforce of over 2800 personnel and 100 professional managers.
+            </p>
+            <a asp-controller="Home" asp-action="About" class="btn btn-primary btn-lg">Learn More About Us</a>
+        </div>
+    </div>
+</div>
