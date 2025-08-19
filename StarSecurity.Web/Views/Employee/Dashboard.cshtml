@@ -1,0 +1,149 @@
+@model StarSecurity.Web.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-speedometer2 me-2"></i>Employee Dashboard</h2>
+                <span class="badge bg-success">Welcome, @Model.FullName</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Employee Profile Card -->
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i>My Profile</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-person-circle display-1 text-primary"></i>
+                        <h5 class="mt-2">@Model.FullName</h5>
+                        <p class="text-muted">@Model.Role</p>
+                    </div>
+                    
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between">
+                            <strong>Employee Code:</strong>
+                            <span class="badge bg-secondary">@Model.EmployeeCode</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <strong>Department:</strong>
+                            <span>@Model.Department</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <strong>Grade:</strong>
+                            <span class="badge bg-info">@Model.Grade</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between">
+                            <strong>Current Client:</strong>
+                            <span>@Model.Client</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-telephone me-2"></i>Contact Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Email Address:</strong></label>
+                        <p class="form-control-plaintext">
+                            <i class="bi bi-envelope me-2"></i>@Model.Email
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Phone Number:</strong></label>
+                        <p class="form-control-plaintext">
+                            <i class="bi bi-phone me-2"></i>@Model.PhoneNumber
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Address:</strong></label>
+                        <p class="form-control-plaintext">
+                            <i class="bi bi-geo-alt me-2"></i>@Model.Address
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-award me-2"></i>Additional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Education:</strong></label>
+                        <p class="form-control-plaintext">@Model.Education</p>
+                    </div>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Achievements))
+                    {
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Achievements:</strong></label>
+                            <p class="form-control-plaintext">@Model.Achievements</p>
+                        </div>
+                    }
+                    
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Member Since:</strong></label>
+                        <p class="form-control-plaintext">@Model.CreatedAt.ToString("MMMM yyyy")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="Directory" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-people me-2"></i>Employee Directory
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Home" asp-action="Business" class="btn btn-outline-info w-100">
+                                <i class="bi bi-briefcase me-2"></i>Our Services
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Home" asp-action="Careers" class="btn btn-outline-success w-100">
+                                <i class="bi bi-search me-2"></i>Job Openings
+                            </a>
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="col-md-3 mb-3">
+                                <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-danger w-100">
+                                    <i class="bi bi-gear me-2"></i>Admin Panel
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+@model IEnumerable<StarSecurity.Web.Models.Employee>
+@{
+    ViewData["Title"] = "Employee Management";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-people-fill me-2"></i>Employee Management</h2>
+        <a asp-action="CreateEmployee" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>Add New Employee
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Employee Code</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Grade</th>
+                            <th>Client</th>
+                            <th>Email</th>
+                            <th>Admin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model)
+                        {
+                            <tr>
+                                <td><strong>@employee.EmployeeCode</strong></td>
+                                <td>@employee.Name</td>
+                                <td>@employee.Department</td>
+                                <td>@employee.Role</td>
+                                <td>
+                                    <span class="badge bg-secondary">@employee.Grade</span>
+                                </td>
+                                <td>@employee.Client</td>
+                                <td>@employee.Email</td>
+                                <td>
+                                    @if (employee.IsAdmin)
+                                    {
+                                        <span class="badge bg-danger">Admin</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Employee</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="EditEmployee" asp-route-id="@employee.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form asp-action="DeleteEmployee" asp-route-id="@employee.Id" method="post" class="d-inline" 
+                                              onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

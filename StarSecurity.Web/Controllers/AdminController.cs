@@ -26,8 +26,19 @@ public class AdminController : Controller
         _serviceManagementService = serviceManagementService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        // Get statistics for dashboard
+        var employees = await _employeeService.GetAllEmployeesAsync();
+        var vacancies = await _vacancyService.GetOpenVacanciesAsync();
+        var clients = await _clientService.GetAllClientsAsync();
+        var services = await _serviceManagementService.GetActiveServicesAsync();
+        
+        ViewBag.EmployeeCount = employees.Count();
+        ViewBag.VacancyCount = vacancies.Count();
+        ViewBag.ClientCount = clients.Count();
+        ViewBag.ServiceCount = services.Count();
+        
         return View();
     }
 
